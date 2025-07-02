@@ -2,6 +2,14 @@ require('dotenv').config()
 
 const app = require('./src/app')
 
+// Root route
+app.get('/', (req, res) => {
+  res.send({
+    activeStatus: true,
+    error: false,
+  });
+});
+
 
 app.listen(3000,() =>{
 
