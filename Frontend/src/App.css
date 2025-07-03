@@ -54,10 +54,13 @@ main .left .review {
   border-radius: 0.7rem;
 }
 
-
 main .right {
   background-color: #343434;
   padding: 1rem 2rem;
   font-size: 1.2rem;
   overflow: auto;
+
+  /* ✅ Add these to preserve line breaks and wrap text */
+  white-space: pre-wrap;
+  word-break: break-word;
 }
