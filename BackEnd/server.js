@@ -1,18 +1,5 @@
-require('dotenv').config()
+require('dotenv').config();
+const app = require('./src/app');
 
-const app = require('./src/app')
-
-// Root route
-app.get('/', (req, res) => {
-  res.send({
-    activeStatus: true,
-    error: false,
-  });
-});
-
-
-app.listen(3000,() =>{
-
-console.log('Server is running on http://localhost:3000')
-
-})
+// Export the app as a serverless function handler for Vercel
+module.exports = app;
