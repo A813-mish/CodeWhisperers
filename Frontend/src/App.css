@@ -17,6 +17,7 @@ main {
   padding: 1.5rem;
   display: flex;
   gap: 1rem;
+  background-color: #1e1e1e; /* Dark background for main container */
 }
 
 main .left,
@@ -24,11 +25,13 @@ main .right {
   height: 100%;
   flex-basis: 50%;
   border-radius: 0.7rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 main .left {
-  background-color: #000000;
+  background-color: #0d1117; /* GitHub dark theme background */
   position: relative;
+  border: 1px solid #30363d; /* Subtle border */
 }
 
 .left .code,
@@ -38,29 +41,61 @@ main .left {
   width: 100%;
   margin: 0;
   border-radius: 0.7rem;
-  background-color: #0c0c0c;
+  background-color: #0d1117;
+  color: #c9d1d9; /* Light gray for code text */
+  font-family: 'Consolas', monospace;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  padding: 1rem;
 }
 
 main .left .review {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  background-color: green;
-  color: #000000;
+  background-color: #238636; /* GitHub green */
+  color: #ffffff; /* White text */
   padding: 0.5rem 2rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   user-select: none;
   border-radius: 0.7rem;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+main .left .review:hover {
+  background-color: #2ea043; /* Lighter green on hover */
+  transform: translateY(-2px);
 }
 
 main .right {
-  background-color: #343434;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
+  background-color: #161b22; /* Darker than left panel */
+  padding: 1.5rem 2rem;
+  font-size: 1.1rem;
   overflow: auto;
+  color: #e6edf3; /* Light text color */
+  border: 1px solid #30363d; /* Matching border */
 
-  /* ✅ Add these to preserve line breaks and wrap text */
+  /* Text formatting */
   white-space: pre-wrap;
   word-break: break-word;
+  line-height: 1.6;
+}
+
+/* Syntax highlighting colors for the right panel */
+.right .bad-code {
+  color: #ff7b72; /* Red for bad code */
+}
+
+.right .good-code {
+  color: #7ee787; /* Green for good code */
+}
+
+.right .issues {
+  color: #ffa657; /* Orange for issues */
+}
+
+.right .improvements {
+  color: #79c0ff; /* Blue for improvements */
 }
