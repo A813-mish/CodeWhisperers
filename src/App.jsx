@@ -1,37 +1,48 @@
-import { useState } from 'react';
-import "prismjs/themes/prism-tomorrow.css";
-import Editor from "react-simple-code-editor";
-import prism from "prismjs";
-import Markdown from "react-markdown";
-import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github-dark.css";
-import axios from 'axios';
-import './App.css';
+import { useState, useEffect } from 'react'
+import "prismjs/themes/prism-tomorrow.css"
+import Editor from "react-simple-code-editor"
+import prism from "prismjs"
+import Markdown from "react-markdown"
+import rehypeHighlight from "rehype-highlight"
+import "highlight.js/styles/github-dark.css"
+import axios from 'axios'
+import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0);
   const [code, setCode] = useState(`function sum() {
-  return 1 + 1;
-}`);
-  const [review, setReview] = useState('');
+  return 1 + 1
+}`)
+
+  const [review, setReview] = useState('')
+
+  useEffect(() => {
+    prism.highlightAll()
+  }, [])
 
   async function reviewCode() {
+    const SERVER_URL = import.meta.env.VITE_REACT_APP_SERVER_URL
+    console.log("Using server:", SERVER_URL)
+
+    if (!SERVER_URL) {
+      console.error("SERVER_URL is undefined. Did you forget to prefix with VITE_ and restart the dev server?")
+      setReview("Error: SERVER_URL is undefined.")
+      return
+    }
+
     try {
-      // safely handle import.meta.env
-      // @ts-ignore if using TypeScript or to silence JS editors
-      const serverUrl = import.meta.env.VITE_REACT_APP_SERVER_URL;
       const response = await axios.post(
-        `${serverUrl}/ai/get-review`,
+        `${SERVER_URL}/ai/get-review`,
         { code }
-      );
-      setReview(response.data.review || response.data);
+      )
+      setReview(response.data)
     } catch (error) {
-      setReview("Error fetching review: " + error.message);
+      console.error("Error fetching review:", error)
+      setReview("Error: Could not fetch review.")
     }
   }
 
   return (
-    <main className="app">
+    <main>
       <div className="left">
         <div className="code">
           <Editor
@@ -47,7 +58,7 @@ function App() {
               border: "1px solid #ddd",
               borderRadius: "5px",
               height: "100%",
-              width: "100%",
+              width: "100%"
             }}
           />
         </div>
@@ -61,7 +72,7 @@ function App() {
         </Markdown>
       </div>
     </main>
-  );
+  )
 }
 
-export default App;
+export default App
